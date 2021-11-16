@@ -12,8 +12,8 @@ namespace vCardPlatform.Controllers
 {
     public class ContaController : ApiController
     {
-        string connectionString = "Data Source=(LocalDB)\\MyInstance;AttachDbFilename=C:\\Users\\rafae\\source\\repos\\vCardPlatform\\App_Data\\Database.mdf;Integrated Security=True";
-        //Co
+        //string connectionString = "Data Source=(LocalDB)\\MyInstance;AttachDbFilename=C:\\Users\\rafae\\source\\repos\\vCardPlatform\\App_Data\\Database.mdf;Integrated Security=True";
+        string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\lucas\\Documents\\GitHub\\js\\vCard-Platform\\App_Data\\Database.mdf;Integrated Security = True";
 
 
 
