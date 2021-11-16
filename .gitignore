@@ -1,0 +1,10 @@
+
+*.dll
+
+*.pdb
+
+*.cache
+
+obj/Debug/bank1-API.csproj.FileListAbsolute.txt
+
+obj/Debug/

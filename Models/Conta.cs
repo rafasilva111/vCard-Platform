@@ -11,6 +11,10 @@ namespace vCardPlatform.Models
         public string AccountOwner { get; set; }
         public float Balance { get; set; }
         public string CreatedAt{get;set;}
+        public int PhoneNumber{get;set;}
+        public int ConfirmationCode{get;set;}
+        public string Email{get;set;}
+
 
 
     }
