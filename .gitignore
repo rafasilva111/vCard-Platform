@@ -1,10 +1,6 @@
 
+obj/Debug/bank1-API.csproj.AssemblyReference.cache
+
+obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+
 *.dll
-
-*.pdb
-
-*.cache
-
-obj/Debug/bank1-API.csproj.FileListAbsolute.txt
-
-obj/Debug/

@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,8 +12,10 @@ namespace vCardPlatform.Controllers
 {
     public class ContaController : ApiController
     {
-        //string connectionString = "Data Source=(LocalDB)\\MyInstance;AttachDbFilename=C:\\Users\\rafae\\source\\repos\\vCardPlatform\\App_Data\\Database.mdf;Integrated Security=True";
-        string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\lucas\\Documents\\GitHub\\js\\vCard-Platform\\App_Data\\Database.mdf;Integrated Security = True";
+        string connectionString = "Data Source=(LocalDB)\\MyInstance;AttachDbFilename=C:\\Users\\rafae\\source\\repos\\vCardPlatform\\App_Data\\Database.mdf;Integrated Security=True";
+        //Co
+
+
 
         // GET: Conta/GetContaById/1
         public IHttpActionResult GetContaById(int id)
@@ -66,7 +69,7 @@ namespace vCardPlatform.Controllers
             }
         }
 
-        
+        // GET: Conta/GetContaById/1
         public IHttpActionResult GetAllContas()
         {
             SqlConnection connection = null;
@@ -88,20 +91,20 @@ namespace vCardPlatform.Controllers
                     pedidoAInserir = new Conta();
                     pedidoAInserir.Id = (int)reader["Id"];
                     pedidoAInserir.Balance = (float)reader["Balance"];
-                    //pedidoAInserir.AccountOwner = (string)reader["Name"];
-                    pedidoAInserir.CreatedAt = (string)reader["CreatedAt"];
-                    //pedidoAInserir.Email = (string)reader["Email"];
-                    pedidoAInserir.ConfirmationCode = (int)reader["ConfirmationCode"];
-                    
-
-                    contas.AddLast(pedidoAInserir);
+                    pedidoAInserir.AccountOwner = (string)reader["AccountOwner"];
+                    string value = (string)reader["CreatedAt"];
+                    if (value == null)
+                    {
+                        pedidoAInserir.CreatedAt = DateTime.Now.Ticks + "";
+                    }
+                    pedidoAInserir.CreatedAt = value;
                 }
 
                 reader.Close();
                 connection.Close();
                 if (pedidoAInserir != null)
                 {
-                    return Ok(contas);
+                    return Ok(pedidoAInserir);
                 }
                 else
                 {
@@ -115,51 +118,11 @@ namespace vCardPlatform.Controllers
                     connection.Close();
                 }
 
-                return Ok(e.Message + "__________________" +e.StackTrace);
+                return Ok(e.Message + e.StackTrace);
             }
         }
 
-        // POST: api/Products
-        public IHttpActionResult PostConta([FromBody] Conta value)
-        {
-            SqlConnection connection = null;
 
-            try
-            {
-                connection = new SqlConnection(connectionString);
-                connection.Open();
-                string cmdSQL = "INSERT INTO pedidosTable VALUES (@AccountOwner,@Balance,@CreatedAt,@PhoneNumber,@Email,@ConfirmationCode)";
-                SqlCommand command = new SqlCommand(cmdSQL, connection);
-                command.Parameters.AddWithValue("@AccountOwner", value.AccountOwner);
-                command.Parameters.AddWithValue("@Balance", value.Balance);
-                command.Parameters.AddWithValue("@CreatedAt", value.CreatedAt);
-                command.Parameters.AddWithValue("@PhoneNumber", value.PhoneNumber);
-                command.Parameters.AddWithValue("@Email", value.Email);
-                command.Parameters.AddWithValue("@ConfirmationCode", value.ConfirmationCode);
-
-                int numRows = command.ExecuteNonQuery();
-
-                connection.Close();
-
-                if (numRows > 0)
-                {
-                    return Ok();
-                }
-
-                return NotFound();
-
-            }
-            catch (Exception)
-            {
-                if (connection.State == System.Data.ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-
-                return NotFound();
-            }
-
-        }
 
     }
 }
